@@ -25,7 +25,7 @@ def load_data_from_mongodb():
     collection = db[collection_name]
 
     # Cargamos los datos de la colección en un DataFrame de pandas (limitado a 1500 documentos)
-    data = collection.find().limit(200000)
+    data = collection.find().limit(100000)
     df = pd.DataFrame(list(data))
     
     # Realizamos la preparación inicial de los datos
