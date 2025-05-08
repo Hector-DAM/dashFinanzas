@@ -18,58 +18,89 @@ from data_loader import (
 # Cargamos los datos al iniciar la aplicación
 df = load_data_from_mongodb()
 
-# Crear la aplicación Dash
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+# Crear la aplicación Dash con tema y hojas de estilo personalizadas
+app = dash.Dash(
+    __name__, 
+    external_stylesheets=[
+        dbc.themes.BOOTSTRAP,
+        # Puedes agregar fuentes de Google o FontAwesome aquí
+        "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    ],
+    # Meta tags para responsive design
+    meta_tags=[
+        {"name": "viewport", "content": "width=device-width, initial-scale=1"}
+    ]
+)
 server = app.server  # Esto es lo que Render utilizará
 
 # Layout del dashboard
 app.layout = dbc.Container([
     dbc.Row([
-        dbc.Col(html.H1("Dashboard de Robo de Identidad en Transacciones Bancarias", 
-                        className="text-center bg-primary text-white p-3 mb-4"), 
-                width=12)
+        dbc.Col(html.H1([
+                html.I(className="fas fa-shield-alt me-2"), 
+                "Dashboard de Robo de Identidad en Transacciones Bancarias"
+            ], 
+            className="text-center app-header"), 
+            width=12)
     ]),
     
     # Filtros
     dbc.Row([
         dbc.Col([
-            html.H5("Filtros", className="text-primary"),
+            html.H5([
+                html.I(className="fas fa-filter me-2"), 
+                "Filtros"
+            ], className="text-primary mb-3"),
             dbc.Card([
                 dbc.CardBody([
                     html.Div([
-                        html.Label("Rango de fechas:"),
+                        html.Label([
+                            html.I(className="fas fa-calendar-alt me-2"), 
+                            "Rango de fechas:"
+                        ]),
                         dcc.DatePickerRange(
                             id='date-range',
                             start_date=df['transactionDateTime'].min().date(),
                             end_date=df['transactionDateTime'].max().date(),
                             start_date_placeholder_text="Fecha inicial",
                             end_date_placeholder_text="Fecha final",
-                            className="mb-2"
+                            className="mb-3 w-100"
                         ),
                     ]),
                     html.Div([
-                        html.Label("País:"),
+                        html.Label([
+                            html.I(className="fas fa-globe-americas me-2"), 
+                            "País:"
+                        ]),
                         dcc.Dropdown(
                             id='country-filter',
                             options=[{'label': country, 'value': country} 
                                     for country in sorted(df['merchantCountryCode'].unique())],
                             multi=True,
-                            placeholder="Seleccionar países"
+                            placeholder="Seleccionar países",
+                            className="mb-3"
                         ),
-                    ], className="mb-2"),
+                    ]),
                     html.Div([
-                        html.Label("Categoría de comercio:"),
+                        html.Label([
+                            html.I(className="fas fa-store me-2"), 
+                            "Categoría de comercio:"
+                        ]),
                         dcc.Dropdown(
                             id='merchant-category-filter',
                             options=[{'label': f"Categoría {cat}", 'value': cat} 
                                     for cat in sorted(df['merchantCategoryCode'].unique())],
                             multi=True,
-                            placeholder="Seleccionar categorías"
+                            placeholder="Seleccionar categorías",
+                            className="mb-3"
                         ),
-                    ], className="mb-2"),
-                    dbc.Button("Aplicar filtros", id="apply-filter", color="primary", className="mt-2"),
+                    ]),
+                    dbc.Button([
+                        html.I(className="fas fa-search me-2"), 
+                        "Aplicar filtros"
+                    ], id="apply-filter", color="primary", className="filter-button mt-2")
                 ])
-            ], className="mb-4")
+            ], className="filters-card")
         ], width=12)
     ]),
     
@@ -78,89 +109,116 @@ app.layout = dbc.Container([
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
+                    html.Div([
+                        html.I(className="fas fa-credit-card fa-2x text-primary mb-3")
+                    ], className="text-center"),
                     html.H5("Total Transacciones", className="card-title text-center"),
                     html.H3(id="total-transactions", className="card-text text-center text-primary"),
                 ])
-            ], className="mb-4")
-        ], width=3),
+            ], className="kpi-card kpi-total mb-4")
+        ], width=12, lg=3),
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
+                    html.Div([
+                        html.I(className="fas fa-exclamation-triangle fa-2x text-danger mb-3")
+                    ], className="text-center"),
                     html.H5("Transacciones Fraudulentas", className="card-title text-center"),
                     html.H3(id="fraud-transactions", className="card-text text-center text-danger"),
                     html.P(id="fraud-rate", className="card-text text-center")
                 ])
-            ], className="mb-4")
-        ], width=3),
+            ], className="kpi-card kpi-fraud mb-4")
+        ], width=12, lg=3),
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
+                    html.Div([
+                        html.I(className="fas fa-user-secret fa-2x text-warning mb-3")
+                    ], className="text-center"),
                     html.H5("Posible Robo de Identidad", className="card-title text-center"),
                     html.H3(id="identity-theft-count", className="card-text text-center text-warning"),
                     html.P(id="identity-theft-rate", className="card-text text-center")
                 ])
-            ], className="mb-4")
-        ], width=3),
+            ], className="kpi-card kpi-identity mb-4")
+        ], width=12, lg=3),
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
+                    html.Div([
+                        html.I(className="fas fa-key fa-2x text-success mb-3")
+                    ], className="text-center"),
                     html.H5("CVV No Coincide", className="card-title text-center"),
-                    html.H3(id="cvv-mismatch", className="card-text text-center text-info"),
+                    html.H3(id="cvv-mismatch", className="card-text text-center text-success"),
                     html.P(id="cvv-mismatch-rate", className="card-text text-center")
                 ])
-            ], className="mb-4")
-        ], width=3)
+            ], className="kpi-card kpi-cvv mb-4")
+        ], width=12, lg=3)
     ]),
     
     # Gráficos principales
     dbc.Row([
         dbc.Col([
             dbc.Card([
-                dbc.CardHeader("Tendencia Temporal de Fraudes"),
+                dbc.CardHeader([
+                    html.I(className="fas fa-chart-line me-2"), 
+                    "Tendencia Temporal de Fraudes"
+                ]),
                 dbc.CardBody([
                     dcc.Graph(id='fraud-trend-chart')
                 ])
-            ], className="mb-4")
-        ], width=8),
+            ], className="chart-card")
+        ], width=12, lg=8),
         dbc.Col([
             dbc.Card([
-                dbc.CardHeader("Indicadores de Robo de Identidad"),
+                dbc.CardHeader([
+                    html.I(className="fas fa-fingerprint me-2"), 
+                    "Indicadores de Robo de Identidad"
+                ]),
                 dbc.CardBody([
                     dcc.Graph(id='identity-theft-indicators-chart')
                 ])
-            ], className="mb-4")
-        ], width=4)
+            ], className="chart-card")
+        ], width=12, lg=4)
     ]),
     
     # Segunda fila de gráficos
     dbc.Row([
         dbc.Col([
             dbc.Card([
-                dbc.CardHeader("Top 10 Países con Mayor Fraude"),
+                dbc.CardHeader([
+                    html.I(className="fas fa-globe me-2"), 
+                    "Top 10 Países con Mayor Fraude"
+                ]),
                 dbc.CardBody([
                     dcc.Graph(id='fraud-by-country-chart')
                 ])
-            ], className="mb-4")
-        ], width=6),
+            ], className="chart-card")
+        ], width=12, lg=6),
         dbc.Col([
             dbc.Card([
-                dbc.CardHeader("Tasa de Fraude por Categoría de Comercio"),
+                dbc.CardHeader([
+                    html.I(className="fas fa-store me-2"), 
+                    "Tasa de Fraude por Categoría de Comercio"
+                ]),
                 dbc.CardBody([
                     dcc.Graph(id='merchant-category-chart')
                 ])
-            ], className="mb-4")
-        ], width=6)
+            ], className="chart-card")
+        ], width=12, lg=6)
     ]),
     
     # Tercera fila de gráficos
     dbc.Row([
         dbc.Col([
             dbc.Card([
-                dbc.CardHeader("Distribución de Fraudes por Monto de Transacción"),
+                dbc.CardHeader([
+                    html.I(className="fas fa-dollar-sign me-2"), 
+                    "Distribución de Fraudes por Monto de Transacción"
+                ]),
                 dbc.CardBody([
                     dcc.Graph(id='amount-distribution-chart')
                 ])
-            ], className="mb-4")
+            ], className="chart-card")
         ], width=12)
     ]),
     
@@ -169,25 +227,34 @@ app.layout = dbc.Container([
         dbc.Col([
             dbc.Card([
                 dbc.CardHeader([
-                    html.H5("Alertas Recientes de Posible Robo de Identidad"),
-                    html.Small("Top 10 transacciones con mayor probabilidad de ser robo de identidad")
+                    html.H5([
+                        html.I(className="fas fa-bell me-2"), 
+                        "Alertas Recientes de Posible Robo de Identidad"
+                    ]),
+                    html.Small([
+                        html.I(className="fas fa-info-circle me-1"), 
+                        "Top 10 transacciones con mayor probabilidad de ser robo de identidad"
+                    ])
                 ]),
                 dbc.CardBody([
-                    html.Div(id='recent-alerts-table')
+                    html.Div(id='recent-alerts-table', className="alerts-table")
                 ])
-            ], className="mb-4")
+            ], className="chart-card")
         ], width=12)
     ]),
     
     # Footer
     dbc.Row([
         dbc.Col(html.Footer([
-            html.P("Dashboard creado para análisis de robos de identidad - © 2025", className="text-center")
-        ]), width=12)
+            html.P([
+                html.I(className="fas fa-shield-alt me-2"),
+                "Dashboard creado para análisis de robos de identidad - © 2025"
+            ])
+        ], className="footer"), width=12)
     ])
 ], fluid=True)
 
-# Callbacks para actualizar los componentes del dashboard
+# Callbacks para actualizar los componentes del dashboard (sin cambios)
 @app.callback(
     [
         Output('total-transactions', 'children'),
@@ -231,14 +298,22 @@ def update_dashboard(n_clicks, start_date, end_date, countries, merchant_categor
     kpis = calculate_identity_theft_kpis(filtered_df)
     viz_data = prepare_visualization_data(filtered_df)
     
-    # Crear gráficos
+    # Definir un template de colores personalizado para los gráficos
+    custom_template = go.layout.Template()
+    custom_template.layout.plot_bgcolor = 'rgba(248, 249, 250, 0.5)'
+    custom_template.layout.paper_bgcolor = 'rgba(255, 255, 255, 0)'
+    custom_template.layout.font = dict(family="Segoe UI, sans-serif")
+    custom_template.layout.margin = dict(l=40, r=40, t=40, b=40)
+    
+    # Crear gráficos mejorados
     # 1. Tendencia temporal de fraudes
     fraud_trend_fig = px.line(
         viz_data['fraud_trend'], 
         x='transaction_date', 
         y=['transactions', 'fraud_cases'],
         title='Tendencia de Transacciones y Fraudes',
-        labels={'value': 'Cantidad', 'transaction_date': 'Fecha', 'variable': 'Tipo'}
+        labels={'value': 'Cantidad', 'transaction_date': 'Fecha', 'variable': 'Tipo'},
+        color_discrete_map={'transactions': '#3498db', 'fraud_cases': '#e74c3c'}
     )
     
     # Añadimos la tasa de fraude como un eje secundario
@@ -246,19 +321,23 @@ def update_dashboard(n_clicks, start_date, end_date, countries, merchant_categor
         x=viz_data['fraud_trend']['transaction_date'],
         y=viz_data['fraud_trend']['fraud_rate'],
         name='Tasa de Fraude (%)',
+        marker_color='rgba(255, 152, 0, 0.6)',
         yaxis='y2'
     )
     
     fraud_trend_fig.update_layout(
+        template=custom_template,
+        legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1),
+        yaxis=dict(title=dict(text='Cantidad', font=dict(size=12)), gridcolor='rgba(230, 230, 230, 0.8)'),
         yaxis2=dict(
-            title='Tasa de Fraude (%)',
-            titlefont=dict(color='red'),
-            tickfont=dict(color='red'),
+            title=dict(text='Tasa de Fraude (%)', font=dict(color='#ff9800', size=12)),
+            tickfont=dict(color='#ff9800'),
             anchor='x',
             overlaying='y',
-            side='right'
+            side='right',
+            gridcolor='rgba(255, 152, 0, 0.1)'
         ),
-        legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1)
+        hovermode='x unified'
     )
     
     # 2. Indicadores de robo de identidad
@@ -270,7 +349,13 @@ def update_dashboard(n_clicks, start_date, end_date, countries, merchant_categor
         title='Tasa de Fraude por Indicador',
         labels={'tasa_fraude': 'Tasa de Fraude (%)', 'indicador': 'Indicador'},
         color='tasa_fraude',
-        color_continuous_scale='Reds'
+        color_continuous_scale=[(0, "#c8e6c9"), (0.5, "#ffcc80"), (1, "#ef9a9a")]
+    )
+    
+    id_theft_indicators_fig.update_layout(
+        template=custom_template,
+        xaxis=dict(title=dict(text='Tasa de Fraude (%)', font=dict(size=12)), gridcolor='rgba(230, 230, 230, 0.8)'),
+        yaxis=dict(title='', automargin=True),
     )
     
     # 3. Distribución geográfica de fraudes
@@ -281,7 +366,13 @@ def update_dashboard(n_clicks, start_date, end_date, countries, merchant_categor
         title='Top 10 Países con Mayor Número de Fraudes',
         labels={'fraud_count': 'Casos de Fraude', 'merchantCountryCode': 'País'},
         color='fraud_count',
-        color_continuous_scale='Blues'
+        color_continuous_scale=[(0, "#bbdefb"), (0.5, "#64b5f6"), (1, "#1976d2")]
+    )
+    
+    fraud_by_country_fig.update_layout(
+        template=custom_template,
+        xaxis=dict(title=dict(text='País', font=dict(size=12)), tickangle=45, automargin=True),
+        yaxis=dict(title=dict(text='Casos de Fraude', font=dict(size=12)), gridcolor='rgba(230, 230, 230, 0.8)')
     )
     
     # 4. Categorías de comercios con mayor tasa de fraude
@@ -292,7 +383,13 @@ def update_dashboard(n_clicks, start_date, end_date, countries, merchant_categor
         title='Top 10 Categorías de Comercio con Mayor Tasa de Fraude',
         labels={'fraud_rate': 'Tasa de Fraude (%)', 'merchantCategoryCode': 'Categoría'},
         color='fraud_rate',
-        color_continuous_scale='Oranges'
+        color_continuous_scale=[(0, "#ffe0b2"), (0.5, "#ffb74d"), (1, "#e65100")]
+    )
+    
+    merchant_category_fig.update_layout(
+        template=custom_template,
+        xaxis=dict(title=dict(text='Categoría de Comercio', font=dict(size=12)), tickangle=45, automargin=True),
+        yaxis=dict(title=dict(text='Tasa de Fraude (%)', font=dict(size=12)), gridcolor='rgba(230, 230, 230, 0.8)')
     )
     
     # 5. Distribución por montos
@@ -302,27 +399,34 @@ def update_dashboard(n_clicks, start_date, end_date, countries, merchant_categor
         y=['transactions', 'fraud_cases'],
         title='Distribución de Transacciones y Fraudes por Monto',
         labels={'value': 'Cantidad', 'amount_range': 'Rango de Monto ($)', 'variable': 'Tipo'},
-        barmode='group'
+        barmode='group',
+        color_discrete_map={'transactions': '#3498db', 'fraud_cases': '#e74c3c'}
     )
     
     amount_dist_fig.add_scatter(
         x=viz_data['amount_dist']['amount_range'],
         y=viz_data['amount_dist']['fraud_rate'],
         name='Tasa de Fraude (%)',
+        line=dict(color='#ff9800', width=3),
+        marker=dict(size=8, color='#ff9800'),
         yaxis='y2',
         mode='lines+markers'
     )
     
     amount_dist_fig.update_layout(
+        template=custom_template,
+        legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1),
+        xaxis=dict(title=dict(text='Rango de Monto ($)', font=dict(size=12)), tickangle=0, automargin=True),
+        yaxis=dict(title=dict(text='Cantidad', font=dict(size=12)), gridcolor='rgba(230, 230, 230, 0.8)'),
         yaxis2=dict(
-            title='Tasa de Fraude (%)',
-            titlefont=dict(color='red'),
-            tickfont=dict(color='red'),
+            title=dict(text='Tasa de Fraude (%)', font=dict(color='#ff9800', size=12)),
+            tickfont=dict(color='#ff9800'),
             anchor='x',
             overlaying='y',
-            side='right'
+            side='right',
+            gridcolor='rgba(255, 152, 0, 0.1)'
         ),
-        legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1)
+        hovermode='x unified'
     )
     
     # Tabla de alertas recientes
@@ -345,18 +449,18 @@ def update_dashboard(n_clicks, start_date, end_date, countries, merchant_categor
     # Ordenar por score de riesgo y tomar los top 10
     recent_alerts = potential_id_theft.sort_values('risk_score', ascending=False).head(10)
     
-    # Crear tabla de alertas
+    # Crear tabla de alertas mejorada
     alert_table = dbc.Table([
         html.Thead(
             html.Tr([
-                html.Th("Cliente ID"),
-                html.Th("Fecha/Hora"),
-                html.Th("Monto"),
-                html.Th("Comercio"),
-                html.Th("País"),
-                html.Th("Score de Riesgo"),
-                html.Th("Indicadores")
-            ])
+                html.Th([html.I(className="fas fa-id-card me-2"), "Cliente ID"]),
+                html.Th([html.I(className="fas fa-calendar me-2"), "Fecha/Hora"]),
+                html.Th([html.I(className="fas fa-dollar-sign me-2"), "Monto"]),
+                html.Th([html.I(className="fas fa-store me-2"), "Comercio"]),
+                html.Th([html.I(className="fas fa-globe me-2"), "País"]),
+                html.Th([html.I(className="fas fa-exclamation-circle me-2"), "Score de Riesgo"]),
+                html.Th([html.I(className="fas fa-flag me-2"), "Indicadores"])
+            ], className="table-primary")
         ),
         html.Tbody([
             html.Tr([
@@ -364,18 +468,23 @@ def update_dashboard(n_clicks, start_date, end_date, countries, merchant_categor
                 html.Td(str(row['transactionDateTime'])),
                 html.Td(f"${row['transactionAmount']:.2f}"),
                 html.Td(row['merchantName']),
-                html.Td(f"{row['merchantCountryCode']}"),
+                html.Td([
+                    html.I(className="fas fa-map-marker-alt me-1"),
+                    f"{row['merchantCountryCode']}"
+                ]),
                 html.Td(html.Span(f"{row['risk_score']}", 
                                  className="badge bg-danger" if row['risk_score'] > 5 else "badge bg-warning")),
-                html.Td(
-                    ", ".join([
-                        "CVV incorrecto" if row['cardCVV'] != row['enteredCVV'] else "",
-                        "Fecha exp. incorrecta" if not row['expirationDateKeyInMatch'] else "",
-                        "País diferente" if row['acqCountry'] != row['merchantCountryCode'] else "",
-                        "Tarjeta no presente" if not row['cardPresent'] else ""
-                    ]).strip(", ")
-                )
-            ]) for _, row in recent_alerts.iterrows()
+                html.Td([
+                    html.Span("CVV incorrecto", className="badge bg-danger me-1") 
+                        if row['cardCVV'] != row['enteredCVV'] else "",
+                    html.Span("Fecha exp. incorrecta", className="badge bg-warning me-1") 
+                        if not row['expirationDateKeyInMatch'] else "",
+                    html.Span("País diferente", className="badge bg-info me-1") 
+                        if row['acqCountry'] != row['merchantCountryCode'] else "",
+                    html.Span("Tarjeta no presente", className="badge bg-secondary me-1") 
+                        if not row['cardPresent'] else ""
+                ])
+            ], className="table-hover") for _, row in recent_alerts.iterrows()
         ])
     ], bordered=True, hover=True, striped=True, responsive=True, className="table-sm")
     

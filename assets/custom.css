@@ -1,0 +1,181 @@
+/* Estilos personalizados para el Dashboard de Robo de Identidad */
+
+/* Estilo general del cuerpo */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Encabezado principal */
+.app-header {
+    background: linear-gradient(120deg, #2c3e50, #1a5276);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para las tarjetas de KPI */
+.kpi-card {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.kpi-card .card-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #6c757d;
+}
+
+.kpi-card .card-text {
+    font-weight: 700;
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+/* KPI específicos */
+.kpi-total {
+    border-top: 4px solid #3498db;
+}
+
+.kpi-fraud {
+    border-top: 4px solid #e74c3c;
+}
+
+.kpi-identity {
+    border-top: 4px solid #f39c12;
+}
+
+.kpi-cvv {
+    border-top: 4px solid #2ecc71;
+}
+
+/* Tarjetas de gráficos */
+.chart-card {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.5rem;
+}
+
+.chart-card .card-header {
+    background-color: white;
+    border-bottom: 1px solid #e9ecef;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #2c3e50;
+    padding: 1rem 1.25rem;
+}
+
+/* Personalización del selector de fechas */
+.DateInput_input {
+    padding: 6px 12px !important;
+    font-size: 0.9rem !important;
+}
+
+.DateRangePickerInput {
+    border-radius: 4px !important;
+}
+
+/* Personalización de los dropdown */
+.Select-control {
+    border-radius: 4px !important;
+}
+
+/* Botón de filtros */
+.filter-button {
+    width: 100%;
+    background: linear-gradient(120deg, #3498db, #2980b9);
+    border: none;
+    transition: all 0.3s;
+}
+
+.filter-button:hover {
+    background: linear-gradient(120deg, #2980b9, #3498db);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para el área de filtros */
+.filters-card {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.5rem;
+}
+
+.filters-card .card-body {
+    padding: 1.25rem;
+}
+
+/* Estilos para la tabla de alertas */
+.alerts-table {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.alerts-table .table thead th {
+    background-color: #f1f8ff;
+    color: #2c3e50;
+    font-weight: 600;
+    border-top: none;
+}
+
+.alerts-table .table-sm td, .alerts-table .table-sm th {
+    padding: 0.75rem;
+}
+
+.alerts-table .badge {
+    padding: 0.5em 0.75em;
+    font-weight: 500;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 1rem;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+/* Responsividad para móviles */
+@media (max-width: 768px) {
+    .kpi-card {
+        margin-bottom: 1rem;
+    }
+    
+    .chart-card .card-header {
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+    }
+}
+
+/* Personalización de scrollbars */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
