@@ -347,7 +347,7 @@ app.layout = dbc.Container([
 
 ], fluid=True)
 
-# Callbacks para actualizar los componentes del dashboard (sin cambios)
+# Callbacks para actualizar los componentes del dashboard
 @app.callback(
     [
         Output('total-transactions', 'children'),
@@ -362,16 +362,14 @@ app.layout = dbc.Container([
         Output('fraud-by-country-chart', 'figure'),
         Output('merchant-category-chart', 'figure'),
         Output('amount-distribution-chart', 'figure'),
-        Output('recent-alerts-table', 'children'),
-        Output('privacy-modal', 'is_open')
+        Output('recent-alerts-table', 'children')
     ],
-    [Input("privacy-link", "n_clicks"), Input('apply-filter', 'n_clicks')],
+    [Input('apply-filter', 'n_clicks')],
     [
         State('date-range', 'start_date'),
         State('date-range', 'end_date'),
         State('country-filter', 'value'),
-        State('merchant-category-filter', 'value'),
-        State('privacy-modal', 'is_open')
+        State('merchant-category-filter', 'value')
     ]
 )
 def update_dashboard(n_clicks, start_date, end_date, countries, merchant_categories):
@@ -599,7 +597,13 @@ def update_dashboard(n_clicks, start_date, end_date, countries, merchant_categor
         alert_table
     )
 
-def toogle_privacy_modal(n1, n2, is_open):
+# Callback separado para el modal de privacidad
+@app.callback(
+    Output('privacy-modal', 'is_open'),
+    [Input('privacy-link', 'n_clicks'), Input('close-privacy', 'n_clicks')],
+    [State('privacy-modal', 'is_open')]
+)
+def toggle_privacy_modal(n1, n2, is_open):
     if n1 or n2:
         return not is_open
     return is_open
