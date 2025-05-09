@@ -25,12 +25,20 @@ app = dash.Dash(
         dbc.themes.BOOTSTRAP,
         # Puedes agregar fuentes de Google o FontAwesome aquí
         "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+
+        # Google Fonts para mejorar la tipografía
+        "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
     ],
     # Meta tags para responsive design
     meta_tags=[
         {"name": "viewport", "content": "width=device-width, initial-scale=1"}
-    ]
+    ],
+
+    # Carga de los estilos CSS personalizados
+    assets_folder='assets'
 )
+
+
 server = app.server  # Esto es lo que Render utilizará
 
 # Layout del dashboard
@@ -43,7 +51,7 @@ app.layout = dbc.Container([
             className="text-center app-header"), 
             width=12)
     ]),
-    
+
     # Filtros
     dbc.Row([
         dbc.Col([
@@ -243,15 +251,100 @@ app.layout = dbc.Container([
         ], width=12)
     ]),
     
-    # Footer
+    # Footer con enlace de aviso de privacidad
     dbc.Row([
         dbc.Col(html.Footer([
             html.P([
                 html.I(className="fas fa-shield-alt me-2"),
-                "Dashboard creado para análisis de robos de identidad - © 2025"
+                "Dashboard creado para análisis de robos de identidad - © 2025 ",
+                html.A("Aviso de Privacidad", id="privacy-link", href="#", className="privacy-link ms-2")
             ])
         ], className="footer"), width=12)
-    ])
+    ]),
+    
+    # Modal para el aviso de privacidad
+    dbc.Modal(
+        [
+            dbc.ModalHeader(dbc.ModalTitle([
+                html.I(className="fas fa-lock me-2"),
+                "Aviso de Privacidad"
+            ])),
+            dbc.ModalBody([
+                html.H5("Política de privacidad para el Dashboard de Detección de Robo de Identidad", className="mb-3"),
+                
+                html.P([
+                    html.Strong("Fecha de última actualización: "), 
+                    "9 de Mayo de 2025"
+                ], className="mb-3"),
+                
+                html.P([
+                    "Esta política de privacidad describe cómo recopilamos, usamos y compartimos la información relacionada con las transacciones bancarias para la detección de fraudes y robos de identidad."
+                ], className="mb-3"),
+                
+                html.H6("Información que recopilamos", className="mt-4 mb-2"),
+                html.P([
+                    "Para el funcionamiento de este dashboard, procesamos los siguientes datos:"
+                ]),
+                html.Ul([
+                    html.Li("Datos de transacciones bancarias (fecha, hora, monto)"),
+                    html.Li("Información del comerciante (país, categoría, identificador)"),
+                    html.Li("Detalles de autenticación de tarjetas (CVV, coincidencias de fechas)"),
+                    html.Li("Indicadores de presencia física de tarjeta"),
+                    html.Li("Información geográfica de la transacción"),
+                ], className="mb-3"),
+                
+                html.H6("Cómo usamos la información", className="mt-4 mb-2"),
+                html.P([
+                    "La información recopilada se utiliza exclusivamente para:"
+                ]),
+                html.Ul([
+                    html.Li("Detección y prevención de actividades fraudulentas"),
+                    html.Li("Identificación de posibles casos de robo de identidad"),
+                    html.Li("Análisis estadístico para mejorar los sistemas de seguridad"),
+                    html.Li("Generación de alertas de seguridad para revisión"),
+                ], className="mb-3"),
+                
+                html.H6("Seguridad de los datos", className="mt-4 mb-2"),
+                html.P([
+                    "Implementamos medidas técnicas y organizativas apropiadas para proteger los datos personales contra pérdida, mal uso, acceso no autorizado, divulgación, alteración y destrucción."
+                ], className="mb-3"),
+                
+                html.H6("Compartir información", className="mt-4 mb-2"),
+                html.P([
+                    "No compartimos la información procesada con terceros excepto cuando sea requerido por ley o para proteger nuestros derechos legales."
+                ], className="mb-3"),
+                
+                html.H6("Conservación de datos", className="mt-4 mb-2"),
+                html.P([
+                    "Los datos utilizados en este dashboard se conservan durante el período necesario para cumplir con los fines establecidos en esta política de privacidad, a menos que se requiera un período de retención más largo por ley."
+                ], className="mb-3"),
+                
+                html.H6("Sus derechos", className="mt-4 mb-2"),
+                html.P([
+                    "Dependiendo de su ubicación, puede tener ciertos derechos en relación con sus datos personales, incluido el derecho a acceder, corregir, eliminar, restringir el procesamiento, la portabilidad de datos y objetar."
+                ], className="mb-3"),
+                
+                html.H6("Cambios a esta política", className="mt-4 mb-2"),
+                html.P([
+                    "Podemos actualizar esta política de privacidad periódicamente para reflejar cambios en nuestras prácticas. Le recomendamos revisar esta política regularmente."
+                ], className="mb-3"),
+                
+                html.H6("Contacto", className="mt-4 mb-2"),
+                html.P([
+                    "Si tiene preguntas sobre esta política de privacidad, contáctenos en: ",
+                    html.A("privacidad@empresa.com", href="mailto:privacidad@empresa.com")
+                ], className="mb-3"),
+            ]),
+            dbc.ModalFooter(
+                dbc.Button("Cerrar", id="close-privacy", className="ms-auto", color="primary")
+            ),
+        ],
+        id="privacy-modal",
+        size="lg",
+        scrollable=True,
+    )
+
+
 ], fluid=True)
 
 # Callbacks para actualizar los componentes del dashboard (sin cambios)
@@ -269,14 +362,16 @@ app.layout = dbc.Container([
         Output('fraud-by-country-chart', 'figure'),
         Output('merchant-category-chart', 'figure'),
         Output('amount-distribution-chart', 'figure'),
-        Output('recent-alerts-table', 'children')
+        Output('recent-alerts-table', 'children'),
+        Output('privacy-modal', 'is_open')
     ],
-    Input('apply-filter', 'n_clicks'),
+    [Input("privacy-link", "n_clicks"), Input('apply-filter', 'n_clicks')],
     [
         State('date-range', 'start_date'),
         State('date-range', 'end_date'),
         State('country-filter', 'value'),
-        State('merchant-category-filter', 'value')
+        State('merchant-category-filter', 'value'),
+        State('privacy-modal', 'is_open')
     ]
 )
 def update_dashboard(n_clicks, start_date, end_date, countries, merchant_categories):
@@ -503,6 +598,11 @@ def update_dashboard(n_clicks, start_date, end_date, countries, merchant_categor
         amount_dist_fig,
         alert_table
     )
+
+def toogle_privacy_modal(n1, n2, is_open):
+    if n1 or n2:
+        return not is_open
+    return is_open
 
 if __name__ == '__main__':
     # Importamos la configuración
