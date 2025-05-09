@@ -179,3 +179,50 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #a1a1a1;
 }
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 1rem;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+/* Enlace de privacidad */
+.privacy-link {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.privacy-link:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+/* Estilos para el modal de privacidad */
+.modal-header {
+    background: linear-gradient(120deg, #2c3e50, #1a5276);
+    color: white;
+    border-bottom: none;
+}
+
+.modal-title {
+    font-weight: 600;
+}
+
+.modal-body h5 {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.modal-body h6 {
+    color: #3498db;
+    font-weight: 600;
+}
+
+.modal-footer {
+    border-top: 1px solid #e9ecef;
+}
