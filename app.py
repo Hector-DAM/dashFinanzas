@@ -454,8 +454,8 @@ def update_dashboard(n_clicks, start_date, end_date, countries, merchant_categor
     # 3. Distribución geográfica de fraudes
     fraud_by_country_fig = px.pie(
         viz_data['fraud_by_country'],
-        x='merchantCountryCode',
-        y='fraud_count',
+        names='merchantCountryCode',
+        values='fraud_count',
         title='Top 10 Países con Mayor Número de Fraudes',
         labels={'fraud_count': 'Casos de Fraude', 'merchantCountryCode': 'País'},
         color='fraud_count',
