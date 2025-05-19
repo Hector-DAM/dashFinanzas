@@ -459,7 +459,7 @@ def update_dashboard(n_clicks, start_date, end_date, countries, merchant_categor
         title='Top 10 Países con Mayor Número de Fraudes',
         labels={'fraud_count': 'Casos de Fraude', 'merchantCountryCode': 'País'},
         color='fraud_count',
-        color_continuous_scale=[(0, "#bbdefb"), (0.5, "#64b5f6"), (1, "#1976d2")]
+        color_discrete_sequence=px.colors.sequential.Blues_r
     )
     
     fraud_by_country_fig.update_layout(
