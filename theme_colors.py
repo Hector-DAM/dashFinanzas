@@ -52,6 +52,8 @@ DIVERGING_COLORS = [
 ]
 
 # Colores para indicadores específicos de fraude
+# Esta parte es para configurar los colores de las etiquetas de los indicadores
+
 FRAUD_INDICATORS = {
     'CVV incorrecto': '#e74c3c',
     'Fecha exp. incorrecta': '#f39c12',
