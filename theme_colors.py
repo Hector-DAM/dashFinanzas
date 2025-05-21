@@ -53,12 +53,16 @@ DIVERGING_COLORS = [
 
 # Colores para indicadores específicos de fraude
 # Esta parte es para configurar los colores de las etiquetas de los indicadores
+.fraud-indicator {
+  color: #333333;          /* texto oscuro */
+  font-weight: 600;
+}
 
 FRAUD_INDICATORS = {
-    'CVV incorrecto': '#e74c3c',
-    'Fecha exp. incorrecta': '#f39c12',
-    'País diferente': '#3498db',
-    'Tarjeta no presente': '#95a5a6'
+    'CVV incorrecto': '#e78ac3',
+    'Fecha exp. incorrecta': '#62deec',
+    'País diferente': '#b462ec',
+    'Tarjeta no presente': '#9aec62'
 }
 
 # Función para obtener una paleta de colores para un determinado número de categorías
