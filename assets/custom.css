@@ -226,3 +226,44 @@ body {
 .modal-footer {
     border-top: 1px solid #e9ecef;
 }
+
+/* Si se quieren cambiar los colores de los badges es a partir de aquí */
+/* Usa el artifact siguiente https://claude.ai/public/artifacts/e2f605e2-52de-48f3-a587-7ba9da98cf11 para una
+vista previa de los badges */
+
+/* Colores personalizados para badges */
+.badge-cvv-incorrecto {
+  background-color: #7f1d1d !important;
+  color: #ffffff !important;
+}
+
+.badge-fecha-exp-incorrecta {
+  background-color: #92400e !important;
+  color: #ffffff !important;
+}
+
+.badge-país-diferente {
+  background-color: #164e63 !important;
+  color: #ffffff !important;
+}
+
+.badge-tarjeta-no-presente {
+  background-color: #374151 !important;
+  color: #ffffff !important;
+}
+
+.badge-alto-riesgo {
+  background-color: #7f1d1d !important;
+  color: #ffffff !important;
+}
+
+.badge-medio-riesgo {
+  background-color: #9a3412 !important;
+  color: #ffffff !important;
+}
+
+.badge-bajo-riesgo {
+  background-color: #14532d !important;
+  color: #ffffff !important;
+}
+
