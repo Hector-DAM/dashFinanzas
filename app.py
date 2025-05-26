@@ -568,13 +568,13 @@ def update_dashboard(n_clicks, start_date, end_date, countries, merchant_categor
                 html.Td(html.Span(f"{row['risk_score']}", 
                                  className="badge bg-danger" if row['risk_score'] > 5 else "badge bg-warning")),
                 html.Td([
-                    html.Span("CVV incorrecto", className="badge bg-danger me-1") 
+                    html.Span("CVV incorrecto", className="badge badge-cvv-incorrecto me-1") 
                         if row['cardCVV'] != row['enteredCVV'] else "",
-                    html.Span("Fecha exp. incorrecta", className="badge bg-warning me-1") 
+                    html.Span("Fecha exp. incorrecta", className="badge badge-fecha-exp-incorrecta me-1") 
                         if not row['expirationDateKeyInMatch'] else "",
-                    html.Span("País diferente", className="badge bg-info me-1") 
+                    html.Span("País diferente", className="badge badge-pais-diferente me-1") 
                         if row['acqCountry'] != row['merchantCountryCode'] else "",
-                    html.Span("Tarjeta no presente", className="badge bg-secondary me-1") 
+                    html.Span("Tarjeta no presente", className="badge badge-tarjeta-no-presente me-1") 
                         if not row['cardPresent'] else ""
                 ])
             ], className="table-hover") for _, row in recent_alerts.iterrows()
@@ -613,4 +613,4 @@ if __name__ == '__main__':
     from config import DEBUG, HOST, PORT
     
     # Iniciamos la aplicación con los parámetros de configuración
-    app.run(debug=DEBUG, host=HOST, port=PORT)
+    app.run(debug=DEBUG, port=PORT)
