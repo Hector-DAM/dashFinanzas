@@ -233,37 +233,37 @@ vista previa de los badges */
 
 /* Colores personalizados para badges */
 .badge-cvv-incorrecto {
-  background-color: #7f1d1d !important;
-  color: #ffffff !important;
+  background-color: #fb606f !important;
+  color: #000000 !important;
 }
 
 .badge-fecha-exp-incorrecta {
-  background-color: #92400e !important;
-  color: #ffffff !important;
+  background-color: #f9bf43 !important;
+  color: #000000 !important;
 }
 
 .badge-país-diferente {
-  background-color: #164e63 !important;
-  color: #ffffff !important;
+  background-color: #4da6fe !important;
+  color: #000000 !important;
 }
 
 .badge-tarjeta-no-presente {
-  background-color: #374151 !important;
-  color: #ffffff !important;
+  background-color: #bb7eec !important;
+  color: #000000 !important;
 }
 
 .badge-alto-riesgo {
-  background-color: #7f1d1d !important;
+  background-color: #d40000 !important;
   color: #ffffff !important;
 }
 
 .badge-medio-riesgo {
-  background-color: #9a3412 !important;
-  color: #ffffff !important;
+  background-color: #dbd800 !important;
+  color: #000000 !important;
 }
 
 .badge-bajo-riesgo {
-  background-color: #14532d !important;
+  background-color: #FF4500 !important;
   color: #ffffff !important;
 }
 
