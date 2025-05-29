@@ -39,5 +39,5 @@
 
 ## Contacto 
 
-En caso de algún fallo, duda, aclaración ponerse en contacto con [Héctor Adaya](hector.adaya@gmail.com) 
+En caso de algún fallo, duda, aclaración ponerse en contacto con [Héctor Adaya](mailto:hector.adaya@gmail.com) 
 
