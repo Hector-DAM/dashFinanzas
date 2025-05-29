@@ -37,5 +37,7 @@
 
 [Dashboard de Robo de Identidad en Transacciones Bancarias](https://dashfinanzas.onrender.com/)
 
+## Contacto 
 
+En caso de algún fallo, duda, aclaración ponerse en contacto con [Héctor Adaya](hector.adaya@gmail.com) 
 
