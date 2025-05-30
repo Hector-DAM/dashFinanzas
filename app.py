@@ -280,21 +280,6 @@ app.layout = dbc.Container([
                 html.P([
                     "Esta política de privacidad describe cómo recopilamos, usamos y compartimos la información relacionada con las transacciones bancarias para la detección de fraudes y robos de identidad."
                 ], className="mb-3"),
-
-                html.P([
-                    "Este aviso de privacidad se fundamenta en las siguientes disposiciones legales:"
-                ]),
-
-                html.Li("Artículo 16 de la Constitución Política de los Estados Unidos Mexicanos"),
-                html.Li("Nueva Ley Federal de Protección de Datos Personales en Posesión de los Particulares (NLFPDPPP), vigente desde marzo de 2025"),
-                html.Li("Reglamento de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares"),
-                html.Li("Lineamientos del Aviso de Privacidad emitidos por la autoridad competente"),
-                html.Li("Estándares internacionales: ISO/IEC 27001, ISO/IEC 27002, ISO/IEC 29100")
-                ], className="mb-3"),
-                
-                html.P([
-                    "Este aviso describe cómo recopilamos, usamos y compartimos la información relacionada con las transacciones bancarias para la detección de fraudes y robos de identidad, en cumplimiento con la normativa mexicana vigente."
-                ], className="mb-3"),
                 
                 html.H6("Información que recopilamos", className="mt-4 mb-2"),
                 html.P([
@@ -357,7 +342,10 @@ app.layout = dbc.Container([
         id="privacy-modal",
         size="lg",
         scrollable=True,
-)
+    )
+
+
+], fluid=True)
 
 # Callbacks para actualizar los componentes del dashboard
 @app.callback(
