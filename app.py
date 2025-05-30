@@ -357,10 +357,7 @@ app.layout = dbc.Container([
         id="privacy-modal",
         size="lg",
         scrollable=True,
-    )
-
-
-], fluid=True)
+)
 
 # Callbacks para actualizar los componentes del dashboard
 @app.callback(
