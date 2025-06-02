@@ -262,87 +262,113 @@ app.layout = dbc.Container([
         ], className="footer"), width=12)
     ]),
     
-    # Modal para el aviso de privacidad
-    dbc.Modal(
-        [
-            dbc.ModalHeader(dbc.ModalTitle([
-                html.I(className="fas fa-lock me-2"),
-                "Aviso de Privacidad"
-            ])),
-            dbc.ModalBody([
-                html.H5("Política de privacidad para el Dashboard de Detección de Robo de Identidad", className="mb-3"),
-                
-                html.P([
-                    html.Strong("Fecha de última actualización: "), 
-                    "9 de Mayo de 2025"
-                ], className="mb-3"),
-                
-                html.P([
-                    "Esta política de privacidad describe cómo recopilamos, usamos y compartimos la información relacionada con las transacciones bancarias para la detección de fraudes y robos de identidad."
-                ], className="mb-3"),
-                
-                html.H6("Información que recopilamos", className="mt-4 mb-2"),
-                html.P([
-                    "Para el funcionamiento de este dashboard, procesamos los siguientes datos:"
-                ]),
-                html.Ul([
-                    html.Li("Datos de transacciones bancarias (fecha, hora, monto)"),
-                    html.Li("Información del comerciante (país, categoría, identificador)"),
-                    html.Li("Detalles de autenticación de tarjetas (CVV, coincidencias de fechas)"),
-                    html.Li("Indicadores de presencia física de tarjeta"),
-                    html.Li("Información geográfica de la transacción"),
-                ], className="mb-3"),
-                
-                html.H6("Cómo usamos la información", className="mt-4 mb-2"),
-                html.P([
-                    "La información recopilada se utiliza exclusivamente para:"
-                ]),
-                html.Ul([
-                    html.Li("Detección y prevención de actividades fraudulentas"),
-                    html.Li("Identificación de posibles casos de robo de identidad"),
-                    html.Li("Análisis estadístico para mejorar los sistemas de seguridad"),
-                    html.Li("Generación de alertas de seguridad para revisión"),
-                ], className="mb-3"),
-                
-                html.H6("Seguridad de los datos", className="mt-4 mb-2"),
-                html.P([
-                    "Implementamos medidas técnicas y organizativas apropiadas para proteger los datos personales contra pérdida, mal uso, acceso no autorizado, divulgación, alteración y destrucción."
-                ], className="mb-3"),
-                
-                html.H6("Compartir información", className="mt-4 mb-2"),
-                html.P([
-                    "No compartimos la información procesada con terceros excepto cuando sea requerido por ley o para proteger nuestros derechos legales."
-                ], className="mb-3"),
-                
-                html.H6("Conservación de datos", className="mt-4 mb-2"),
-                html.P([
-                    "Los datos utilizados en este dashboard se conservan durante el período necesario para cumplir con los fines establecidos en esta política de privacidad, a menos que se requiera un período de retención más largo por ley."
-                ], className="mb-3"),
-                
-                html.H6("Sus derechos", className="mt-4 mb-2"),
-                html.P([
-                    "Dependiendo de su ubicación, puede tener ciertos derechos en relación con sus datos personales, incluido el derecho a acceder, corregir, eliminar, restringir el procesamiento, la portabilidad de datos y objetar."
-                ], className="mb-3"),
-                
-                html.H6("Cambios a esta política", className="mt-4 mb-2"),
-                html.P([
-                    "Podemos actualizar esta política de privacidad periódicamente para reflejar cambios en nuestras prácticas. Le recomendamos revisar esta política regularmente."
-                ], className="mb-3"),
-                
-                html.H6("Contacto", className="mt-4 mb-2"),
-                html.P([
-                    "Si tiene preguntas sobre esta política de privacidad, contáctenos en: ",
-                    html.A("privacidad@empresa.com", href="mailto:privacidad@empresa.com")
-                ], className="mb-3"),
+# Modal para el aviso de privacidad
+dbc.Modal(
+    [
+        dbc.ModalHeader(dbc.ModalTitle([
+            html.I(className="fas fa-lock me-2"),
+            "Aviso de Privacidad"
+        ])),
+        dbc.ModalBody([
+            html.H5("Política de privacidad para el Dashboard de Detección de Robo de Identidad", className="mb-3"),
+            
+            html.P([
+                html.Strong("Fecha de última actualización: "), 
+                "9 de Mayo de 2025"
+            ], className="mb-3"),
+            
+            html.P([
+                "Esta política de privacidad describe cómo recopilamos, usamos y compartimos la información relacionada con las transacciones bancarias para la detección de fraudes y robos de identidad."
+            ], className="mb-3"),
+
+            html.P([
+                "Este aviso de privacidad se fundamenta en las siguientes disposiciones legales:"
             ]),
-            dbc.ModalFooter(
-                dbc.Button("Cerrar", id="close-privacy", className="ms-auto", color="primary")
-            ),
-        ],
-        id="privacy-modal",
-        size="lg",
-        scrollable=True,
-    )
+
+            html.Ul([
+                html.Li("Artículo 16 de la Constitución Política de los Estados Unidos Mexicanos"),
+                html.Li("Nueva Ley Federal de Protección de Datos Personales en Posesión de los Particulares (NLFPDPPP), vigente desde marzo de 2025"),
+                html.Li("Reglamento de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares"),
+                html.Li("Lineamientos del Aviso de Privacidad emitidos por la autoridad competente"),
+                html.Li("Estándares internacionales: ISO/IEC 27001, ISO/IEC 27002, ISO/IEC 29100")
+            ], className="mb-3"),
+            
+            html.P([
+                "Este aviso describe cómo recopilamos, usamos y compartimos la información relacionada con las transacciones bancarias para la detección de fraudes y robos de identidad, en cumplimiento con la normativa mexicana vigente."
+            ], className="mb-3"),
+            
+            html.H6("Información que recopilamos", className="mt-4 mb-2"),
+            html.P([
+                "Para el funcionamiento de este dashboard, procesamos los siguientes datos:"
+            ]),
+            html.Ul([
+                html.Li("Datos de transacciones bancarias (fecha, hora, monto)"),
+                html.Li("Información del comerciante (país, categoría, identificador)"),
+                html.Li("Detalles de autenticación de tarjetas (CVV, coincidencias de fechas)"),
+                html.Li("Indicadores de presencia física de tarjeta"),
+                html.Li("Información geográfica de la transacción"),
+            ], className="mb-3"),
+            
+            html.H6("Cómo usamos la información", className="mt-4 mb-2"),
+            html.P([
+                "La información recopilada se utiliza exclusivamente para:"
+            ]),
+            html.Ul([
+                html.Li("Detección y prevención de actividades fraudulentas"),
+                html.Li("Identificación de posibles casos de robo de identidad"),
+                html.Li("Análisis estadístico para mejorar los sistemas de seguridad"),
+                html.Li("Generación de alertas de seguridad para revisión"),
+            ], className="mb-3"),
+            
+            html.H6("Seguridad de los datos", className="mt-4 mb-2"),
+            html.P([
+                "Implementamos medidas técnicas y organizativas apropiadas para proteger los datos personales contra pérdida, mal uso, acceso no autorizado, divulgación, alteración y destrucción."
+            ], className="mb-3"),
+            
+            html.H6("Compartir información", className="mt-4 mb-2"),
+            html.P([
+                "No compartimos la información procesada con terceros excepto cuando sea requerido por ley o para proteger nuestros derechos legales."
+            ], className="mb-3"),
+            
+            html.H6("Conservación de datos", className="mt-4 mb-2"),
+            html.P([
+                "Los datos utilizados en este dashboard se conservan durante el período necesario para cumplir con los fines establecidos en esta política de privacidad, a menos que se requiera un período de retención más largo por ley."
+            ], className="mb-3"),
+            
+            html.H6("Sus derechos", className="mt-4 mb-2"),
+            html.P([
+                "Dependiendo de su ubicación, puede tener ciertos derechos en relación con sus datos personales, incluido el derecho a acceder, corregir, eliminar, restringir el procesamiento, la portabilidad de datos y objetar."
+            ], className="mb-3"),
+            
+            html.H6("Cambios a esta política", className="mt-4 mb-2"),
+            html.P([
+                "Podemos actualizar esta política de privacidad periódicamente para reflejar cambios en nuestras prácticas. Le recomendamos revisar esta política regularmente."
+            ], className="mb-3"),
+            
+            html.H6("Documento Adicional", className="mt-4 mb-2"),
+            html.P([
+                "Para más detalles sobre nuestras prácticas de privacidad, consulte nuestro ",
+                html.A([
+                    html.I(className="fas fa-file-alt me-1"),
+                    "Aviso de Privacidad"
+                ], href="/assets/aviso_privacidad_completo.pdf", target="_blank", className="text-decoration-none"),
+                " que está disponible en formato PDF."
+                ], className="mb-3"),
+
+            html.H6("Contacto", className="mt-4 mb-2"),
+            html.P([
+                "Si tiene preguntas sobre esta política de privacidad, contáctenos en: ",
+                html.A("privacidad@empresa.com", href="mailto:privacidad@empresa.com")
+            ], className="mb-3"),
+        ]),
+        dbc.ModalFooter(
+            dbc.Button("Cerrar", id="close-privacy", className="ms-auto", color="primary")
+        ),
+    ],
+    id="privacy-modal",
+    size="lg",
+    scrollable=True,
+)
 
 
 ], fluid=True)
@@ -442,7 +468,7 @@ def update_dashboard(n_clicks, start_date, end_date, countries, merchant_categor
         title='Tasa de Fraude por Indicador',
         labels={'tasa_fraude': 'Tasa de Fraude (%)', 'indicador': 'Indicador'},
         color='tasa_fraude',
-        color_continuous_scale=[(0, "#c8e6c9"), (0.5, "#ffcc80"), (1, "#ef9a9a")]
+        color_continuous_scale=[(0, "#bb7eec"), (0.5, "#4da6fe"), (1, "#fe485a")]
     )
     
     id_theft_indicators_fig.update_layout(
@@ -493,7 +519,8 @@ def update_dashboard(n_clicks, start_date, end_date, countries, merchant_categor
         title='Distribución de Transacciones y Fraudes por Monto',
         labels={'value': 'Cantidad', 'amount_range': 'Rango de Monto ($)', 'variable': 'Tipo'},
         barmode='group',
-        color_discrete_map={'transactions': '#3498db', 'fraud_cases': '#e74c3c'}
+        color_discrete_map={'transactions': '#3498db', 'fraud_cases': '#e74c3c'},
+        log_y=True
     )
     
     amount_dist_fig.add_scatter(
@@ -614,3 +641,4 @@ if __name__ == '__main__':
     
     # Iniciamos la aplicación con los parámetros de configuración
     app.run(debug=DEBUG, port=PORT, host=HOST)
+
