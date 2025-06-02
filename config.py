@@ -6,6 +6,6 @@ DB_NAME = "BaseDatos2"
 COLLECTION_NAME = "7moPP"
 
 # Otras configuraciones
-DEBUG = True
+DEBUG = False
 PORT = 5000
 HOST = '0.0.0.0'
