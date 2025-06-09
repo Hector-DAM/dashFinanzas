@@ -1047,4 +1047,4 @@ if __name__ == '__main__':
     from config import DEBUG, HOST, PORT
     
     # Iniciamos la aplicación con los parámetros de configuración
-    app.run(debug=DEBUG, port=PORT)
+    app.run(debug=DEBUG, port=PORT, host=HOST)
