@@ -28,8 +28,8 @@
 ## Autores
 
 - [Héctor Adaya](https://github.com/Hector-DAM)
-- [Valeria Garcia](https://github.com/Hector-DAM)
-- [Laired Pichardo](https://github.com/Hector-DAM)
+- [Valeria Garcia](https://github.com/ValeriaGE)
+- [Laired Pichardo](https://github.com/Laaired)
 - [Gloria Ruíz](https://github.com/GloriaEURS)
 
 
@@ -39,5 +39,6 @@
 
 ## Contacto 
 
-En caso de algún fallo, duda, aclaración ponerse en contacto con [Héctor Adaya](mailto:hector.adaya@gmail.com) 
+En caso de algún fallo, duda, aclaración ponerse en contacto con [Héctor Adaya](mailto:hector.adaya@gmail.com?subject=Soporte%20Dashboard), temas relacionado a contratación con [Valeria García](mailto:valeespinosa2012@gmail.com?subject=Contratación), con [Laired Pichardo](mailto:lairedislas97@gmail.com?subject:Soporte%20Datos) para lo relacionado con el tema de los datos y con [Gloria Ruiz](mailto:gloria.ruizsanchez166df@gmail.com?subject:Accesos%20y%20Privacidad) para nuestro aviso de privacidad.
+
 
