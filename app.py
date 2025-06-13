@@ -162,6 +162,137 @@ privacy_modal = dbc.Modal([
     ),
 ], id="privacy-modal", size="lg", scrollable=True)
 
+# Modal para la sección de contacto
+contact_modal = dbc.Modal([
+    dbc.ModalHeader(dbc.ModalTitle([
+        html.I(className="fas fa-address-book me-2"),
+        "Información de Contacto"
+    ])),
+    dbc.ModalBody([
+        html.H5("Contactos de Soporte y Servicios", className="text-primary mb-4"),
+        
+        html.P([
+            "En caso de algún fallo, duda o aclaración, puedes ponerte en contacto con nuestro equipo especializado según tu necesidad:"
+        ], className="mb-4"),
+
+        # Soporte Técnico
+        dbc.Card([
+            dbc.CardBody([
+                html.Div([
+                    html.I(className="fas fa-tools fa-2x text-primary mb-3"),
+                    html.H6("Soporte Técnico", className="card-title text-primary"),
+                    html.P([
+                        "Para fallos, dudas técnicas y aclaraciones sobre el dashboard."
+                    ], className="card-text mb-3"),
+                    html.Div([
+                        html.I(className="fas fa-user me-2"),
+                        html.Strong("Héctor Adaya")
+                    ], className="mb-2"),
+                    html.Div([
+                        html.A([
+                            html.I(className="fas fa-envelope me-2"),
+                            "hector.adaya@gmail.com"
+                        ], 
+                        href="mailto:hector.adaya@gmail.com?subject=Soporte%20Dashboard", 
+                        className="btn btn-outline-primary btn-sm",
+                        target="_blank")
+                    ])
+                ], className="text-center")
+            ])
+        ], className="mb-3"),
+
+        # Contratación
+        dbc.Card([
+            dbc.CardBody([
+                html.Div([
+                    html.I(className="fas fa-handshake fa-2x text-success mb-3"),
+                    html.H6("Contratación y Ventas", className="card-title text-success"),
+                    html.P([
+                        "Para temas relacionados con contratación de servicios."
+                    ], className="card-text mb-3"),
+                    html.Div([
+                        html.I(className="fas fa-user me-2"),
+                        html.Strong("Valeria García")
+                    ], className="mb-2"),
+                    html.Div([
+                        html.A([
+                            html.I(className="fas fa-envelope me-2"),
+                            "valeespinosa2012@gmail.com"
+                        ], 
+                        href="mailto:valeespinosa2012@gmail.com?subject=Contratación", 
+                        className="btn btn-outline-success btn-sm",
+                        target="_blank")
+                    ])
+                ], className="text-center")
+            ])
+        ], className="mb-3"),
+
+        # Soporte de Datos
+        dbc.Card([
+            dbc.CardBody([
+                html.Div([
+                    html.I(className="fas fa-database fa-2x text-info mb-3"),
+                    html.H6("Soporte de Datos", className="card-title text-info"),
+                    html.P([
+                        "Para consultas relacionadas con el manejo y análisis de datos."
+                    ], className="card-text mb-3"),
+                    html.Div([
+                        html.I(className="fas fa-user me-2"),
+                        html.Strong("Laired Pichardo")
+                    ], className="mb-2"),
+                    html.Div([
+                        html.A([
+                            html.I(className="fas fa-envelope me-2"),
+                            "lairedislas97@gmail.com"
+                        ], 
+                        href="mailto:lairedislas97@gmail.com?subject=Soporte%20Datos", 
+                        className="btn btn-outline-info btn-sm",
+                        target="_blank")
+                    ])
+                ], className="text-center")
+            ])
+        ], className="mb-3"),
+
+        # Privacidad y Accesos
+        dbc.Card([
+            dbc.CardBody([
+                html.Div([
+                    html.I(className="fas fa-shield-alt fa-2x text-warning mb-3"),
+                    html.H6("Accesos y Privacidad", className="card-title text-warning"),
+                    html.P([
+                        "Para consultas sobre aviso de privacidad y gestión de accesos."
+                    ], className="card-text mb-3"),
+                    html.Div([
+                        html.I(className="fas fa-user me-2"),
+                        html.Strong("Gloria Ruiz")
+                    ], className="mb-2"),
+                    html.Div([
+                        html.A([
+                            html.I(className="fas fa-envelope me-2"),
+                            "gloria.ruizsanchez166df@gmail.com"
+                        ], 
+                        href="mailto:gloria.ruizsanchez166df@gmail.com?subject=Accesos%20y%20Privacidad", 
+                        className="btn btn-outline-warning btn-sm",
+                        target="_blank")
+                    ])
+                ], className="text-center")
+            ])
+        ], className="mb-3"),
+
+        html.Hr(className="my-4"),
+        
+        html.Div([
+            html.I(className="fas fa-info-circle me-2 text-muted"),
+            html.Small([
+                "Al hacer clic en cualquier enlace de email se abrirá tu cliente de correo predeterminado con el asunto preconfigurado para una mejor atención."
+            ], className="text-muted")
+        ], className="text-center")
+    ]),
+    dbc.ModalFooter(
+        dbc.Button("Cerrar", id="close-contact", className="ms-auto", color="primary")
+    ),
+], id="contact-modal", size="lg", scrollable=True)
+
 # Sección de configuración de email
 email_config_section = dbc.Row([
     dbc.Col([
@@ -446,20 +577,23 @@ app.layout = dbc.Container([
         ], width=12)
     ]),
     
-    # Footer con enlace de aviso de privacidad
+    # Footer con enlaces de aviso de privacidad y contacto
     dbc.Row([
         dbc.Col(html.Footer([
             html.P([
                 html.I(className="fas fa-shield-alt me-2"),
                 "Dashboard creado para análisis de robos de identidad - © 2025 ",
-                html.A("Aviso de Privacidad", id="privacy-link", href="#", className="privacy-link ms-2")
+                html.A("Aviso de Privacidad", id="privacy-link", href="#", className="privacy-link ms-2 me-2"),
+                " | ",
+                html.A("Contacto", id="contact-link", href="#", className="contact-link ms-2")
             ])
         ], className="footer"), width=12)
     ]),
     
     # Modales - IMPORTANTE: Los modales deben estar dentro del layout principal
     email_preview_modal,
-    privacy_modal
+    privacy_modal,
+    contact_modal
 
 ], fluid=True)
 
@@ -768,6 +902,17 @@ def update_dashboard(n_clicks, start_date, end_date, countries, merchant_categor
     [State('privacy-modal', 'is_open')]
 )
 def toggle_privacy_modal(n1, n2, is_open):
+    if n1 or n2:
+        return not is_open
+    return is_open
+
+# Callback para el modal de contacto
+@app.callback(
+    Output('contact-modal', 'is_open'),
+    [Input('contact-link', 'n_clicks'), Input('close-contact', 'n_clicks')],
+    [State('contact-modal', 'is_open')]
+)
+def toggle_contact_modal(n1, n2, is_open):
     if n1 or n2:
         return not is_open
     return is_open
